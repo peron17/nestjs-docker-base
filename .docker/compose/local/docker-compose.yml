@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+
+  app:
+    container_name: mrms_nsfr_app
+    build: 
+      context: ./../../../
+      dockerfile: ./.docker/file/local/nest/nest.Dockerfile
+    image: mrms_nsfr_app:latest
+    ports:
+      - ${DOCKER_NODE_BIND_PORT}:3000
+    volumes:
+      - ./../../../app/:/apps/api
+    networks:
+      mrms_nsfr_network:
+        ipv4_address: ${DOCKER_NODE_IP_ADDRESS}
+
+networks:
+  mrms_nsfr_network:
+    ipam:
+      config:
+        - subnet: ${DOCKER_NETWORK_SUBNET}
